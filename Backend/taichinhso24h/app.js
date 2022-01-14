@@ -1,4 +1,3 @@
-require('dotenv/config')
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -9,10 +8,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // router
-var categories = require('./Routers/CategoriesRoutes');
+var users = require('./Routers/usersRoutes');
+var categories = require('./Routers/categoriesRoutes');
 
 // end
-mongoose.connect(process.env.DB_LOCAL, {
+mongoose.connect(process.env.DB_ALTS, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 }, function (err, db) {
@@ -22,11 +22,19 @@ mongoose.connect(process.env.DB_LOCAL, {
         console.log('Connection established to');
     }
 });
+// end connect database
 
+app.use('/users/', users);
 app.use('/categories/', categories);
+// app.use(function (req, res, next) {
+//     var err = new Error('Not Found');
+//     err.status = 404;
+//     next();
+// });
 
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
+    console.log('err>>', err);
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:' + process.env.PORT);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');

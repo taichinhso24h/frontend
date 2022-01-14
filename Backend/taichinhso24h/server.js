@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-require('dotenv/config')
+ require('dotenv/config')
 var app = require('./app');
 var debug = require('debug')('taichinhso24h:server');
 // var http = require('http');
@@ -30,6 +30,12 @@ const hostname = process.env.DEV;
  server.listen(port, hostname);
  server.on('error', onError);
  server.on('listening', onListening);
+ server.on('request', function(req, res){
+    // console.log('err:::', res);
+ });
+//  server.on('response', function(res){
+//     console.log('err:::', res);
+//  });
 /**
  * Normalize a port into a number, string, or false.
  */
