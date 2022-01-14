@@ -3,6 +3,7 @@ import '../../access/admin/css/animate.css';
 import { ADMIN_DASHBOARD } from '../../Constant';
 
 const LoginComponent = () => {
+    // 
     return (
         <div className="hold-transition login-page">
             <div className="login-box">
